@@ -318,6 +318,14 @@ public:
 			cin>>b[i].a>>b[i].b;
 			base[i]=n-m+i;
 			b[i]();
+			if(b[i]<ZERO)
+			{
+				for(int j=0;j<n-m;++j)
+				{
+					a[i][j]=a[i][j]*Number(-1);
+				}
+				b[i]=b[i]*Number(-1);
+			}
 		}
 		a[m].resize(n);
 		for(int i=n-m;i<n;++i)
@@ -368,7 +376,7 @@ public:
 }a;
 int main()
 {
-	freopen("input.txt","r",stdin);
+	freopen("input_.txt","r",stdin);
 	freopen("output.txt","w",stdout);
 	a.Test();
 	return 0;
