@@ -97,8 +97,8 @@ public:
 const Number ZERO(0);
 class Simplex
 {
-	int m;//
-	int n;//
+	int m;
+	int n;
 	string z;
 	vector<string>nam;
 	vector<int>base;
@@ -226,6 +226,7 @@ public:
 			}
 			if(index2==-1)
 			{
+				puts("min is -infty");
 				break;
 			}
 			cout<<nam[base[index]]<<"->"<<nam[index2]<<endl;
@@ -250,6 +251,23 @@ public:
 				b[i]=b[i]-cut*b[index2];
 			}
 			Print();
+		}
+		if(Check())
+		{
+			cout<<"min:";
+			b[m].W();
+			cout<<endl;
+			vector<Number>answer(n);
+			for(int i=0;i<m;++i)
+			{
+				answer[base[i]]=b[i];
+			}
+			for(int i=0;i<n;++i)
+			{
+				cout<<nam[i]<<"=";
+				answer[i].W();
+				cout<<endl;
+			}
 		}
 	}
 	inline void Init()
