@@ -4,7 +4,9 @@
 
 ```mermaid
 flowchart TD
-	A(开始) --> B[初始化和输入]
+	A(开始) --> B[输入]
+	B --> I[若约束为不等式添加变量为标准型]
+	I --> J[若约束右端小于 0 则整体乘以负一]
 	B --> C[每个约束条件添加变量实现二阶段法]
 	C --> H[将检验系数进行消元]
 	H --> D[单纯形法计算得到基本可行解]
@@ -20,10 +22,23 @@ flowchart TD
 	F -->|是| G[输出唯一解]
 	F -->|否| H[输出说明有无穷解并输出其中一组解]
 	B -->|否| C{寻找新的入基变量和离基变量}
-	C -->|没有找到| D[输出无解并退出]
+	C -->|没有找到| D[说明无下界并退出]
 	C -->|找到| E[修改基变量并通过高斯消元计算出新的系数]
 	E --> I[输出单纯形表]
 	I --> B
+```
+
+## 变量说明
+
+与求解单纯形相关变量有以下：
+```
+int m;//约束行个数
+int n;//变量个数
+string z;//最小化函数的名称
+vector<string>nam;//编号为 i 的变量的名称
+vector<int>base;//第 i 行约束行的基变量
+vector<vector<Number>>a;//单纯形表
+vector<Number>b;//单纯形表右端列的值
 ```
 
 ## 如何使用
@@ -32,7 +47,7 @@ flowchart TD
 
 运行前需要确保电脑上已经有 g++ 环境。若没有环境可以在 [Windows 版本下载链接](https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev0/x86_64-14.2.0-release-posix-seh-ucrt-rt_v12-rev0.7z)，其他系统请在 [下载链接](https://github.com/niXman/mingw-builds-binaries/releases) 中选择合适版本下载并添加环境变量后运行。
 
-### 输入格式
+### 输入与输出
 
 输入文件 `input.txt` 第一行必须包含一个整数 $n$
 
@@ -147,7 +162,7 @@ y1=0
 
 即最后得到当 $x_1=1,x_3=2,xxx_2=2,y_0=0,y_1=0$  时取得最小值 $\min -2x_1+xxx_2=0$。
 
-更多的输入输出例子在 `Examples` 文件夹中。
+更多的输入输出例子在 `Examples` 文件夹中（输入均来自课本习题，且均与答案相同）。
 
 ## 有待实现的
 
