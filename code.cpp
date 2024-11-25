@@ -63,6 +63,10 @@ public:
 	{
 		return a*p.b>p.a*b;
 	}
+	inline bool operator ==(const Number &p)
+	{
+		return a*p.b==p.a*b;
+	}
 	inline void operator ()()
 	{
 		long long g=Gcd(abs(a),abs(b));
@@ -243,7 +247,7 @@ public:
 			}
 			if(index2==-1)
 			{
-				puts("min is -infty");
+				cout<<"min is -infty"<<endl;
 				break;
 			}
 			cout<<nam[index]<<"->"<<nam[base[index2]]<<endl;
@@ -251,7 +255,7 @@ public:
 			Number di=a[index2][index];
 			if(se.find(base)!=se.end())
 			{
-				puts("... ...");
+				cout<<"... ..."<<endl;
 				break;
 			}
 			se.insert(base);
@@ -277,6 +281,18 @@ public:
 		}
 		if(Check())
 		{
+			vector<bool>vis(n);
+			for(int i=0;i<m;++i)
+			{
+				vis[base[i]]=1;
+			}
+			for(int i=0;i<n;++i)
+			{
+				if(!vis[i]&&a[m][i]==ZERO)
+				{
+					cout<<"More solutions."<<endl;
+				}
+			}
 			cout<<"min:";
 			b[m].W();
 			cout<<endl;
