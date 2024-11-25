@@ -99,11 +99,13 @@ class Simplex
 {
 	int m;
 	int n;
+	int rule;
 	string z;
 	vector<string>nam;
 	vector<int>base;
 	vector<vector<Number>>a;
 	vector<Number>b;
+	set<vector<int>>se;
 	inline bool Check()
 	{
 		for(auto p:a[m])
@@ -121,6 +123,17 @@ class Simplex
 		{
 			cout<<ch;
 		}
+	}
+	inline bool Find(const int i)
+	{
+		for(int j=0;j<m;++j)
+		{
+			if(a[j][i]>ZERO)
+			{
+				return 1;
+			}
+		}
+		return 0;
 	}
 public:
 	inline void Print()
@@ -189,20 +202,24 @@ public:
 			int index=-1;
 			for(int i=0;i<n;++i)
 			{
-				if(a[m][i]>0&&(index==-1||a[m][index]<a[m][i]))
+				if(rule==0)
 				{
-					bool flag=0;
-					for(int j=0;j<m;++j)
+					if(a[m][i]>0&&(index==-1||a[m][index]<a[m][i]))
 					{
-						if(a[j][i]>0)
+						if(Find(i))
 						{
-							flag=1;
-							break;
+							index=i;
 						}
 					}
-					if(flag)
+				}
+				if(rule==1)
+				{
+					if(a[m][i]>0&&index==-1)
 					{
-						index=i;
+						if(Find(i))
+						{
+							index=i;
+						}
 					}
 				}
 			}
@@ -229,9 +246,15 @@ public:
 				puts("min is -infty");
 				break;
 			}
-			cout<<nam[base[index]]<<"->"<<nam[index2]<<endl;
+			cout<<nam[index]<<"->"<<nam[base[index2]]<<endl;
 			base[index2]=index;
 			Number di=a[index2][index];
+			if(se.find(base)!=se.end())
+			{
+				puts("... ...");
+				break;
+			}
+			se.insert(base);
 			for(int i=0;i<n;++i)
 			{
 				a[index2][i]=a[index2][i]/di;
@@ -292,6 +315,7 @@ public:
 	}
 	inline void Test()
 	{
+		cin>>rule;
 		cin>>n>>m;
 		nam.resize(n+m);
 		a.resize(m+1);
@@ -376,8 +400,8 @@ public:
 }a;
 int main()
 {
-	freopen("input_.txt","r",stdin);
-	freopen("output.txt","w",stdout);
+	// freopen("input_.txt","r",stdin);
+	// freopen("output.txt","w",stdout);
 	a.Test();
 	return 0;
 }
