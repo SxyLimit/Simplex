@@ -226,13 +226,13 @@ int main()
 		Init(a[i],p[i],i);
 	}
 	getline(cin,rule);
-	if(rule[0]=='B')
+	if(rule=="Dantzig")
 	{
 		cout<<0<<endl;
 	}
 	else
 	{
-		if(rule[0]=='D')
+		if(rule=="Bland")
 		{
 			cout<<1<<endl;
 		}
