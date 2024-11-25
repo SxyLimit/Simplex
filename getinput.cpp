@@ -76,7 +76,7 @@ set<string>se;
 vector<map<string,Number>>p;
 inline Number Get1Number(int &now,const string &s)
 {
-	while(now<s.size()&&s[now]<'0'||s[now]>='9')
+	while(now<s.size()&&(s[now]<'0'||s[now]>'9'))
 	{
 		++now;
 	}
@@ -106,7 +106,7 @@ inline Number Get1Number(int &now,const string &s)
 inline Number GetNumber(int &now,const string &s)
 {
 	int f=1;
-	while(now<s.size()&&s[now]<'0'||s[now]>'9')
+	while(now<s.size()&&(s[now]<'0'||s[now]>'9'))
 	{
 		if(s[now]=='-')
 		{
@@ -211,10 +211,11 @@ inline void Init(const string &a,map<string,Number> &p,const int id)
 }
 map<string,int>toint;
 vector<vector<Number>>aa;
+string rule;
 int main()
 {
-	freopen("input.txt","r",stdin);
-	freopen("input_.txt","w",stdout);
+	// freopen("input.txt","r",stdin);
+	// freopen("input_.txt","w",stdout);
 	cin>>n;
 	a.resize(n+1);
 	p.resize(n+1);
@@ -223,6 +224,22 @@ int main()
 	{
 		getline(cin,a[i]);
 		Init(a[i],p[i],i);
+	}
+	getline(cin,rule);
+	if(rule[0]=='B')
+	{
+		cout<<0<<endl;
+	}
+	else
+	{
+		if(rule[0]=='D')
+		{
+			cout<<1<<endl;
+		}
+		else
+		{
+			cout<<0<<endl;
+		}
 	}
 	int cnt=0;
 	for(auto s:se)
